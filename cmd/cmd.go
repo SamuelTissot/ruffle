@@ -42,9 +42,12 @@ func process(path string, skip bool, f func(record []string) error) error {
 	return nil
 }
 
-func hash(v []byte) string {
+func hash(v []byte, inB64 bool) string {
 	h := sha256.Sum256(v)
-	return base64.StdEncoding.EncodeToString(h[:])
+	if inB64 {
+		return base64.StdEncoding.EncodeToString(h[:])
+	}
+	return string(h[:])
 }
 
 func checkIndexOutOfBound(i int, r []string) error {

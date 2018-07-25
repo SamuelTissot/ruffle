@@ -27,7 +27,7 @@ var Find = cli.Command{
 func find(c *cli.Context) error {
 	n := c.String("needle")
 	i := c.Int("cell")
-	hn := hash([]byte(n))
+	hn := hash([]byte(n), c.GlobalBool("pretty"))
 	w := csv.NewWriter(os.Stdout)
 	path := c.Args().First()
 	err := process(path, false, func(record []string) error {

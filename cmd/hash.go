@@ -8,8 +8,8 @@ import (
 )
 
 var Encrypt = cli.Command{
-	Name:  "encrypt",
-	Usage: "perform an encryption operation on each line of a `FILE`",
+	Name:  "hash",
+	Usage: "perform a hash operation on each line of a `FILE`",
 	Flags: []cli.Flag{
 		cli.IntFlag{
 			Name:  "cell, c",
@@ -17,14 +17,14 @@ var Encrypt = cli.Command{
 			Value: 0,
 		},
 		cli.BoolFlag{
-			Name:  "headerRow, hr",
+			Name:  "headerRow, -r",
 			Usage: "if the first row a header file",
 		},
 	},
-	Action: encrypt,
+	Action: hashAction,
 }
 
-func encrypt(c *cli.Context) error {
+func hashAction(c *cli.Context) error {
 	path := c.Args().First()
 	w := csv.NewWriter(os.Stdout)
 	i := c.Int("cell")
@@ -35,7 +35,7 @@ func encrypt(c *cli.Context) error {
 			return err
 		}
 
-		record[i] = hash([]byte(record[i]))
+		record[i] = hash([]byte(record[i]), c.GlobalBool("pretty"))
 		if err := w.Write(record); err != nil {
 			return err
 		}

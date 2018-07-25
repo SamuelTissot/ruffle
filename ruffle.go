@@ -22,6 +22,15 @@ func main() {
 			Email: "tissotjobin@gmail.com",
 		},
 	}
+
+	// global flags
+	app.Flags = []cli.Flag{
+		cli.BoolFlag{
+			Name:  "pretty, p",
+			Usage: "prettify the SHA256 by encoding it in base64",
+		},
+	}
+
 	app.Commands = []cli.Command{
 		cmd.Encrypt,
 		cmd.Find,
