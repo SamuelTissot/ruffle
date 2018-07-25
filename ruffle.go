@@ -11,7 +11,7 @@ import (
 
 func main() {
 	app := cli.NewApp()
-	app.Version = "0.0.1"
+	app.Version = "0.0.2"
 	app.Name = "Ruffle"
 	app.Usage = "a break in the smoothness or evenness of data; undulation of content"
 	app.Compiled = time.Now()
