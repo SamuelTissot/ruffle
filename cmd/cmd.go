@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-func process(path string, skip bool, f func(record []string) error) error {
+func process(path string, f func(record []string) error) error {
 	file, err := os.Open(path)
 	if err != nil {
 		return err
@@ -17,15 +17,6 @@ func process(path string, skip bool, f func(record []string) error) error {
 	defer file.Close()
 
 	r := csv.NewReader(file)
-
-	if skip {
-		// disregard first row
-		_, err := r.Read()
-		if err == io.EOF {
-			return err
-		}
-	}
-
 	for {
 		record, err := r.Read()
 		if err == io.EOF {
@@ -39,6 +30,7 @@ func process(path string, skip bool, f func(record []string) error) error {
 			return err
 		}
 	}
+
 	return nil
 }
 

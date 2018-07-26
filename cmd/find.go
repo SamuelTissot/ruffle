@@ -30,7 +30,7 @@ func find(c *cli.Context) error {
 	hn := hash([]byte(n), c.GlobalBool("pretty"))
 	w := csv.NewWriter(os.Stdout)
 	path := c.Args().First()
-	err := process(path, false, func(record []string) error {
+	err := process(path, func(record []string) error {
 		err := checkIndexOutOfBound(i, record)
 		if err != nil {
 			return err
